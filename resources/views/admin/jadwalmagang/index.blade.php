@@ -1,6 +1,15 @@
 @extends('layouts.admin')
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="row ">
     <div class="col-12 mt-3 mb-3">
         @if (session()->has('success'))
@@ -31,16 +40,20 @@
                                     <th class="text-center" scope="col">Nama Jurusan</th>
                                     <th class="text-center" scope="col">Tanggal Mulai</th>
                                     <th class="text-center" scope="col">Tanggal Keluar</th>
+                                    <th class="text-center" scope="col">Bagian Magang</th>
+                                    <th class="text-center" scope="col">Tugas</th>
                                     <th class="text-center" scope="col">Aksi</th>
                                 </tr>
                             </thead>
                     <tbody>
                     @foreach ($jadwalmagangs as $jadwalmagang)
                       <tr>
-                        <td class="text-center">{{ $jadwalmagang->nama_peserta}}</td>
-                        <td class="text-center">{{ $jadwalmagang->nama_jurusan}}</td>
+                        <td class="text-center">{{ $jadwalmagang->profil->nama_peserta}}</td>
+                        <td class="text-center">{{ $jadwalmagang->profil->jurusan->nama_jurusan}}</td>
                         <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($jadwalmagang->tanggal_mulai))->format('d/m/Y') }} </td>
-                        <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($jadwalmagang->tanggal_keluar))->format('d/m/Y') }} </td>
+                        <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($jadwalmagang->tanggal_selesai))->format('d/m/Y') }} </td>
+                        <td class="text-center">{{ $jadwalmagang->bagianMagang->nama_bagian}}</td>
+                        <td class="text-center">{{ $jadwalmagang->profil->user->tugasMagang->tugas}}</td>
                         <td class="text-center">
                         <div class="d-flex justify-content-center">
                         <a href="{{ route('jadwalmagang.edit',$jadwalmagang->id) }}" class="btn btn-sm btn-warning mx-1"><i class="fa fa-edit"></i> Edit</a>

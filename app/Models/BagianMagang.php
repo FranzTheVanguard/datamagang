@@ -14,4 +14,8 @@ class BagianMagang extends Model
         'kode_bagian',
         'nama_bagian',
     ];
+    public function jadwalMagang()
+	{
+		return $this->hasMany(JadwalMagang::class,'id_bagian_magang');
+	}
 }

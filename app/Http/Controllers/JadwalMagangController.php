@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BagianMagang;
 use Illuminate\Http\Request;
 use App\Models\JadwalMagang;
+use App\Models\Profil;
 
 class JadwalMagangController extends Controller
 {
@@ -24,8 +26,9 @@ class JadwalMagangController extends Controller
     * @return \Illuminate\Http\Response
     */
    public function create()
-   {
-       return view('admin.jadwalmagang.create',['title'=>'Tambah Jadwal Magang']);
+   {    
+        // dd(Profil::whereDoesntHave('jadwalMagang'), BagianMagang::whereDoesntHave('jadwalMagang'));
+       return view('admin.jadwalmagang.create',['title'=>'Tambah Jadwal Magang'])->with('profiles', Profil::whereDoesntHave('jadwalMagang')->get())->with('bagians', BagianMagang::whereDoesntHave('jadwalMagang')->get());
    }
 
    /**
@@ -42,6 +45,8 @@ class JadwalMagangController extends Controller
            'nama_jurusan'=>$request->nama_jurusan,
            'tanggal_mulai'=>$request->tanggal_mulai,
            'tanggal_selesai'=>$request->tanggal_selesai,
+           'id_profil'=>$request->profil,
+            'id_bagian_magang'=>$request->bagian,
        ]);
        return redirect('jadwalmagang')->with('msg', 'Berhasil Tambah Jadwal Magang!');
    }
@@ -66,7 +71,7 @@ class JadwalMagangController extends Controller
    public function edit(JadwalMagang $jadwalmagang)
    {
        $title="jadwalmagang";
-       return view('admin.jadwalmagang.edit',compact('title','jadwalmagang'));
+       return view('admin.jadwalmagang.edit',compact('title','jadwalmagang'))->with('profiles', Profil::whereDoesntHave('jadwalMagang')->get())->with('bagians', BagianMagang::all());
    }
 
    /**
@@ -84,6 +89,8 @@ class JadwalMagangController extends Controller
         'nama_jurusan'=>$request->nama_jurusan,
         'tanggal_mulai'=>$request->tanggal_mulai,
         'tanggal_selesai'=>$request->tanggal_selesai,
+        'id_profil'=>$request->profil,
+        'id_bagian_magang'=>$request->bagian,
        ]);
        return redirect('jadwalmagang')->with('msg', 'Berhasil Edit Jadwal Magang!');
    }

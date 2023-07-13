@@ -15,4 +15,8 @@ class Jurusan extends Model
         'kode_jurusan',
         'nama_jurusan',
     ];
+    public function profil()
+	{
+		return $this->hasMany(Profil::class,'id_jurusan');
+	}
 }

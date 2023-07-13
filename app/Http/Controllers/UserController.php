@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profil;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,8 +28,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.user.create',['title'=>'Tambah user']);
+    {   
+        return view('admin.user.create',['title'=>'Tambah user'])->with('profiles', Profil::whereDoesntHave('user')->get());
     }
 
     /**
@@ -54,6 +55,7 @@ class UserController extends Controller
             'name'=>$name,
             'password'=>bcrypt($password),
             'role'=>$role,
+            'id_profil'=>$profil,
         ];
 
         User::create($data);
@@ -79,7 +81,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.edit',['title'=>'Edit user','user'=>$user]);
+        return view('admin.user.edit',['title'=>'Edit user','user'=>$user])->with('profiles', Profil::whereDoesntHave('user')->get());
     }
 
     /**
@@ -95,9 +97,8 @@ class UserController extends Controller
         $data=[
             'role'=>$role,
             'name'=>$name,
-
+            'id_profil'=>$profil,
         ];
-
         $user->update($data);
         return redirect('user')->with('success', 'Berhasil edit Data user');
     }

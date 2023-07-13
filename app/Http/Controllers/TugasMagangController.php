@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TugasMagang;
+use App\Models\User;
 
 class TugasMagangController extends Controller
 {
@@ -25,7 +26,7 @@ class TugasMagangController extends Controller
     */
    public function create()
    {
-       return view('admin.tugasmagang.create',['title'=>'Tambah Tugas Magang']);
+       return view('admin.tugasmagang.create',['title'=>'Tambah Tugas Magang'])->with('users', User::whereDoesntHave('tugasMagang')->get());
    }
 
    /**
@@ -38,7 +39,7 @@ class TugasMagangController extends Controller
    {
        TugasMagang::create([
       
-           'id_user'=>$request->id_user,
+           'id_user'=>$request->user,
            'tugas'=>$request->tugas,
            'deskripsi'=>$request->deskripsi,
            'tanggal_tugas'=>$request->tanggal_tugas,
@@ -66,7 +67,7 @@ class TugasMagangController extends Controller
    public function edit(TugasMagang $tugasmagang)
    {
        $title="tugasmagang";
-       return view('admin.tugasmagang.edit',compact('title','tugasmagang'));
+       return view('admin.tugasmagang.edit',compact('title','tugasmagang'))->with('users', User::whereDoesntHave('tugasMagang')->get());
    }
 
    /**
@@ -80,7 +81,7 @@ class TugasMagangController extends Controller
    {
        $tugasmagang->update([
 
-        'id_user'=>$request->id_user,
+        'id_user'=>$request->user,
         'tugas'=>$request->tugas,
         'deskripsi'=>$request->deskripsi,
         'tanggal_tugas'=>$request->tanggal_tugas,

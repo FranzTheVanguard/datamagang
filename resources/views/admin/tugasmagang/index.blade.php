@@ -1,6 +1,15 @@
 @extends('layouts.admin')
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="row ">
     <div class="col-12 mt-3 mb-3">
         @if (session()->has('success'))
@@ -31,6 +40,7 @@
                                     <th class="text-center" scope="col">Tugas</th>
                                     <th class="text-center" scope="col">Deskripsi</th>
                                     <th class="text-center" scope="col">Tanggal Tugas</th>
+                                    <th class="text-center" scope="col">Peserta</th>
                                     <th class="text-center" scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -40,7 +50,10 @@
                         <td class="text-center">{{ $tugasmagang->id_user}}</td>
                         <td class="text-center">{{ $tugasmagang->tugas}}</td>
                         <td class="text-center">{{ $tugasmagang->deskripsi}}</td>
-                        <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($tugasmagang>tanggal_tugas))->format('d/m/Y') }} </td>
+                        
+                        <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($tugasmagang->tanggal_tugas))->format('d/m/Y') }} </td>
+                        <td class="text-center">{{ $tugasmagang->user->profil->nama_peserta}}</td>
+
                         <td class="text-center">
                         <div class="d-flex justify-content-center">
                         <a href="{{ route('tugasmagang.edit',$tugasmagang->id) }}" class="btn btn-sm btn-warning mx-1"><i class="fa fa-edit"></i> Edit</a>

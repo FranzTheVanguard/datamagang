@@ -26,10 +26,6 @@
             @csrf
           <div class="card-body">
             <div class="form-group">
-              <label for="id_user">Id User</label>
-              <input type="string" class="form-control" id="id_user" name="id_user" placeholder="Id User" required>
-            </div>
-            <div class="form-group">
               <label for="tugas">Tugas</label>
               <input type="string" class="form-control" id="tugas" name="tugas" placeholder="Tugas" required>
             </div>
@@ -41,7 +37,14 @@
               <label for="tanggal_tugas">Tanggal Tugas</label>
               <input type="date" class="form-control" id="tanggal_tugas" name="tanggal_tugas" placeholder="Tanggal Tugas" required>
             </div>
-          
+            <div class="form-group">
+              <label for="user">User</label>
+              <select name="user" class="form-control" id="user">
+                @foreach ($users as $item)
+                <option value={{$item->id}}>{{$item->name}}</option>
+                @endforeach
+              </select>
+            </div>
 
 
           </div>

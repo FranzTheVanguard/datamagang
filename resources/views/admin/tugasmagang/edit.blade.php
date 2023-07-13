@@ -27,10 +27,6 @@
             @method('PUT')
           <div class="card-body">
             <div class="form-group">
-              <label for="id_user">Id User</label>
-              <input type="string" class="form-control" id="id_user" name="id_user" value="{{ $tugasmagang->id_user }}" placeholder="id_user" required>
-            </div>
-            <div class="form-group">
               <label for="tugas">tugas</label>
               <input type="string" class="form-control" id="tugas" name="tugas" value="{{ $tugasmagang->tugas }}" placeholder="tugas" required>
             </div>
@@ -41,6 +37,14 @@
               <div class="form-group">
                 <label for="tanggal_tugas">Tanggal Tugas</label>
                 <input type="date" class="form-control" id="tanggal_tugas" name="tanggal_tugas" value="{{ $tugasmagang->tanggal_tugas}}" placeholder="tanggal_tugas" required>
+              </div>
+              <div class="form-group">
+                <label for="user">User</label>
+                <select name="user" class="form-control" id="user">
+                  @foreach ($users as $item)
+                  <option value={{$item->id}}>{{$item->name}}</option>
+                  @endforeach
+                </select>
               </div>
 
 

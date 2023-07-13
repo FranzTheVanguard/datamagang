@@ -40,7 +40,22 @@
               <label for="tanggal_lahir">Tanggal Lahir</label>
               <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Lahir" required>
             </div>
-          
+            <div class="form-group">
+              <label for="jurusan">Jurusan</label>
+              <select name="jurusan" class="form-control" id="jurusan">
+                @foreach ($jurusans as $item)
+                <option value={{$item->id}}>{{$item->nama_jurusan}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="instansi">Jurusan</label>
+              <select name="instansi" class="form-control" id="instansi">
+                @foreach ($instansis as $item)
+                <option value={{$item->id}}>{{$item->nama_instansi}}</option>
+                @endforeach
+              </select>
+            </div>
 
 
           </div>

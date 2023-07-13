@@ -1,6 +1,15 @@
 @extends('layouts.admin')
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="row ">
     <div class="col-12 mt-3 mb-3">
         @if (session()->has('success'))
@@ -30,6 +39,7 @@
                                     <th class="text-center" scope="col">Nama Instansi</th>
                                     <th class="text-center" scope="col">Alamat</th>
                                     <th class="text-center" scope="col">No Telepon</th>
+                                    <th class="text-center" scope="col">Total Peserta</th>
                                     <th class="text-center" scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -39,6 +49,8 @@
                         <td class="text-center">{{ $instansi->nama_instansi}}</td>
                         <td class="text-center">{{ $instansi->alamat}}</td>
                          <td class="text-center">{{ $instansi->no_telepon}}</td>
+                        <td class="text-center">{{ count($instansi->profil)}}</td>
+
                         <td class="text-center">
                         <div class="d-flex justify-content-center">
                         <a href="{{ route('instansi.edit',$instansi->id) }}" class="btn btn-sm btn-warning mx-1"><i class="fa fa-edit"></i> Edit</a>

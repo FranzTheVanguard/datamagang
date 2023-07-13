@@ -49,5 +49,9 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo(Profil::class,'id_profil');
 	}
+    public function tugasMagang()
+	{
+		return $this->hasOne(TugasMagang::class,'id_user');
+	}
     
 }

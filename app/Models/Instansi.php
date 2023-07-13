@@ -15,4 +15,8 @@ class Instansi extends Model
         'alamat',
         'no_telepon',
     ];
+    public function profil()
+	{
+		return $this->hasMany(Profil::class,'id_instansi');
+	}
 }

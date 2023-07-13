@@ -41,7 +41,22 @@
               <label for="tanggal_selesai">Tanggal Selesai</label>
               <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" placeholder="Tanggal Selesai" required>
             </div>
-          
+            <div class="form-group">
+              <label for="profil">Profil</label>
+              <select name="profil" class="form-control" id="profil">
+                @foreach ($profiles as $item)
+                <option value={{$item->id}}>{{$item->nama_peserta}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bagian">Bagian Magang</label>
+              <select name="bagian" class="form-control" id="bagian">
+                @foreach ($bagians as $item)
+                <option value={{$item->id}}>{{$item->nama_bagian}}</option>
+                @endforeach
+              </select>
+            </div>
 
 
           </div>

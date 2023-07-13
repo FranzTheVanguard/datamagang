@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Instansi;
+use App\Models\Jurusan;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,7 @@ class ProfilController extends Controller
      */
     public function create()
     {
-        return view('admin.profil.create',['title'=>'Tambah Profil']);
+        return view('admin.profil.create',['title'=>'Tambah Profil'])->with('jurusans', Jurusan::all())->with('instansis', Instansi::all());
     }
  
     /**
@@ -41,7 +43,8 @@ class ProfilController extends Controller
             'nama_peserta'=>$request->nama_peserta,
             'tanggal_lahir'=>$request->tanggal_lahir,
             'jenis_kelamin'=>$request->jenis_kelamin,
-          
+            'id_jurusan'=>$request->jurusan,
+            'id_instansi'=>$request->instansi,
         ]);
         return redirect('profil')->with('msg', 'Berhasil tambah Profil!');
     }
@@ -66,7 +69,7 @@ class ProfilController extends Controller
     public function edit(Profil $profil)
     {
         $title="profil";
-        return view('admin.profil.edit',compact('title','profil'));
+        return view('admin.profil.edit',compact('title','profil'))->with('jurusans', Jurusan::all())->with('instansis', Instansi::all());
     }
  
     /**
@@ -83,6 +86,8 @@ class ProfilController extends Controller
             'nama_peserta'=>$request->nama_peserta,
             'tanggal_lahir'=>$request->tanggal_lahir,
             'jenis_kelamin'=>$request->jenis_kelamin,
+            'id_jurusan'=>$request->jurusan,
+            'id_instansi'=>$request->instansi,
           
         ]);
         return redirect('profil')->with('msg', 'Berhasil edit profil!');

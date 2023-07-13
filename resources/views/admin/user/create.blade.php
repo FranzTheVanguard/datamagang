@@ -44,6 +44,14 @@
                 <option value="user">User</option>
               </select>
             </div>
+            <div class="form-group">
+              <label for="profil">Profil</label>
+              <select name="profil" class="form-control" id="profil">
+                @foreach ($profiles as $item)
+                <option value={{$item->id}}>{{$item->nama_peserta}}</option>
+                @endforeach
+              </select>
+            </div>
 
 
           </div>
